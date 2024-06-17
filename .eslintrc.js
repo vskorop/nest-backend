@@ -22,4 +22,34 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
+  "overrides": [
+    {
+      "files": ["src/**/*.slice.ts", "src/**/*.axios.ts"],
+      "rules": { "no-param-reassign": ["error", { "props": false }] }
+    },
+
+    {
+      "files": ["*.ts",],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              ["@grpc/proto-loader"],
+              ["@nestjs/common"],
+              ["@nestjs/jwt"],
+              ["@nestjs/jwt"],
+              ["passport-jwt"],
+              ["@nestjs/microservices", "@nestjs/passport", "@nestjs/platform-express"],
+              ["bcryptjs"],
+              ["^path"],
+              ["^\\.\\.(?!/?$)"],
+              ["^\\."],
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
 };

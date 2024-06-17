@@ -18,4 +18,4 @@ import { User } from '../user/user.entity';
     ],
     exports: [TypeOrmModule],
 })
-export class DatabaseModule {}
+export class DatabaseModule { }

@@ -1,7 +1,7 @@
-import {Injectable} from '@nestjs/common';
-import {UsersService} from '../user/user.service';
-import {JwtService} from '@nestjs/jwt';
-import {User} from '../user/user.entity';
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { UsersService } from '../user/user.service';
+import { User } from '../user/user.entity';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class AuthService {
     constructor(
         private usersService: UsersService,
         private jwtService: JwtService,
-    ) {}
+    ) { }
 
     async validateUser(username: string, password: string): Promise<any> {
         const user = await this.usersService.findOne(username);
@@ -27,7 +27,7 @@ export class AuthService {
         };
     }
 
-    async register(user: User) {
+    async register(user: Partial<User>) {
         const hashedPassword = bcrypt.hashSync(user.password, 8);
         return await this.usersService.create({
             ...user,
