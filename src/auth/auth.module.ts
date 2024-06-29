@@ -23,7 +23,7 @@ import { JwtStrategy } from './jwt.strategy';
                 transport: Transport.GRPC,
                 options: {
                     package: 'auth',
-                    protoPath: join(__dirname, '../../proto/auth.proto'),
+                    protoPath: join(__dirname, '../../src/auth/auth.proto'),
                 },
             },
         ]),
