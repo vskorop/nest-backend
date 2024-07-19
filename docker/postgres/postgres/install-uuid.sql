@@ -1,0 +1,1 @@
+CREATE EXTENTION IF NOT EXIST "uuid-oosp"

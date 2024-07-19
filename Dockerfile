@@ -12,6 +12,6 @@ COPY . .
 
 RUN pnpm run build
 
-EXPOSE 4000
+EXPOSE 5432
 
 CMD ["pnpm", "start:prod"]
