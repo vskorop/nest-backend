@@ -1,56 +1,41 @@
-# compiled output
-/dist
-/node_modules
-/build
+# Dependency directories
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Build outputs
+dist
+build
+
+# Environment files
+.env
+*.env
+
+# Version control
+.git
+.gitignore
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Docker and container related
+docker-compose.yml
+Dockerfile
 
 # Logs
 logs
 *.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 
-# OS
-.DS_Store
+# Development specific
+.vscode
+.idea
 
-# Tests
-/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# temp directory
-.temp
+# Temp and backup files
+*.swp
+*~
 .tmp
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+# Migrations and data directories
+migrations
+data

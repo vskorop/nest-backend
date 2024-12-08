@@ -1,0 +1,41 @@
+version: '1.0.0'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-secretpassword}
+      - POSTGRES_DB=${POSTGRES_DB:-db_auth}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - ${PGDATA:-./data/postgres}:/data/postgres
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-adminpassword}
+    ports:
+      - "5050:80"
+    volumes:
+      - ${PGADTA_PATH:-./data/pgadmin}:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  nestjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-secretpassword}@postgres:5432/${POSTGRES_DB:-db_auth}
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/app
+      - /app/node_modules

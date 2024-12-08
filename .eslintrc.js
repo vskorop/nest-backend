@@ -31,24 +31,7 @@ module.exports = {
     {
       "files": ["*.ts",],
       "rules": {
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [
-              ["@grpc/proto-loader"],
-              ["@nestjs/common"],
-              ["@nestjs/jwt"],
-              ["@nestjs/jwt"],
-              ["passport-jwt"],
-              ["@nestjs/microservices", "@nestjs/passport", "@nestjs/platform-express"],
-              ["bcryptjs"],
-              ["^path"],
-              ["^\\.\\.(?!/?$)"],
-              ["^\\."],
-              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"]
-            ]
-          }
-        ]
+
       }
     }
   ]
