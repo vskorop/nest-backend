@@ -11,6 +11,7 @@
     "docker:down": "docker-compose down",
     "migrate": "npx drizzle-kit migrate",
     "generate": "npx drizzle-kit generate",
+    "studio": "npx drizzle-kit studio",
     "migrate:run": "ts-node src/db/migrate.ts",
     "test": "jest",
     "test:watch": "jest --watch",
