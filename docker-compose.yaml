@@ -33,7 +33,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-secretpassword}@postgres:5432/${POSTGRES_DB:-db_auth}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-user}:${POSTGRES_PASSWORD:-123}@postgres:5432/${POSTGRES_DB:-db_auth}
     depends_on:
       - postgres
     volumes:
