@@ -9,18 +9,40 @@ import { users, userRoles, roleEnum } from 'src/migrations/schema';
 export class UserService {
     constructor(private drizzleService: DrizzleService) { }
 
-    async createUser(userData: typeof users.$inferInsert) {
+    async save(userData: typeof users.$inferInsert) {
         return await this.drizzleService.db.transaction(async (tx) => {
-            // const hashedPassword = userData?.password ? this.hashPassword(userData.password) : null;
+            const hashedPassword = this.hashPassword(userData.password)
 
-            const [newUser] = await tx.insert(users).values({ ...userData, password: userData.password }).returning();
+            const existUser = await tx
+                .select()
+                .from(users)
+                .where(eq(users.email, userData.email))
+                .then(rows => rows[0])
+
+            if (existUser) {
+                const [updatedUser] = await tx
+                    .update(users)
+                    .set({ ...userData, email: existUser.email, password: hashedPassword })
+                    .where(eq(users.email, userData.email))
+                    .returning()
+
+                return {
+                    email: updatedUser.email,
+                    id: updatedUser.id
+                };
+            }
+
+            const [newUser] = await tx.insert(users).values({ ...userData, password: hashedPassword }).returning();
 
             await tx.insert(userRoles).values({
                 userId: newUser.id,
                 role: roleEnum.enumValues['USER'],
             } as { userId: string; role: 'USER' });
 
-            return newUser;
+            return {
+                email: newUser.email,
+                id: newUser.id
+            };
         });
     }
 
@@ -28,7 +50,7 @@ export class UserService {
         return this.drizzleService.db.select().from(users);
     }
 
-    async findOne(idOrEmail: string, isUuid: boolean) {
+    async findFirst(idOrEmail: string, isUuid: boolean) {
         return await this.drizzleService.db
             .select()
             .from(users)
@@ -36,9 +58,12 @@ export class UserService {
     }
 
     async deleteUser(id: string) {
-        return await this.drizzleService.db.delete(users).where(eq(users.id, id))
+        return await this.drizzleService.db
+            .delete(users)
+            .where(eq(users.id, id))
+            .returning({ deletedId: users.id });
     }
-
+    //hashPassword
     private hashPassword(password: string) {
         return hashSync(password, genSaltSync(10));
     }

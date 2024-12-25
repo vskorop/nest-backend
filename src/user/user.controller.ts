@@ -15,14 +15,14 @@ export class UserController {
     }
 
     @Post('write')
-    async writeUser(@Body() userData: typeof usersTable.$inferInsert) {
-        return await this.userService.createUser(userData);
+    async createUser(@Body() userData: typeof usersTable.$inferInsert) {
+        return await this.userService.save(userData);
     }
 
     @Get(':idOrEmail')
     async findOne(@Param('idOrEmail') idOrEmail: string) {
         const isUuid = validate(idOrEmail)
-        const user = await this.userService.findOne(idOrEmail, isUuid);
+        const user = await this.userService.findFirst(idOrEmail, isUuid);
 
         if (!user) {
             throw new BadRequestException('User not found')
@@ -32,6 +32,13 @@ export class UserController {
 
     @Delete(':id')
     async deleteUser(@Param('id', ParseUUIDPipe) id: string) {
-        return await this.userService.deleteUser(id);
+        const [deletedUser] = await this.userService.deleteUser(id);
+
+        if (!deletedUser) {
+            throw new BadRequestException('User has not deleted')
+        }
+
+        return 'User has deleted'
+
     }
 }

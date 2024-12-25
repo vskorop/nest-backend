@@ -15,9 +15,9 @@ export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
   email: text('email').unique().notNull(),
   password: text('password').notNull(),
-  provider: providerEnum('provider').notNull(),
+  provider: providerEnum('provider').notNull().default('GOOGLE'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow().$onUpdate(() => new Date()),
   isBlocked: boolean('is_blocked').default(false).notNull()
 });
 

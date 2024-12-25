@@ -8,6 +8,13 @@
       "when": 1735024550546,
       "tag": "0000_yellow_blue_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1735130475958,
+      "tag": "0001_furry_puff_adder",
+      "breakpoints": true
     }
   ]
 }
